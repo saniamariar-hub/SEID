@@ -1,244 +1,285 @@
-SEID Engine — Social Engineering & Intrusion Detection System
+# SEID Engine — Social Engineering & Intrusion Detection System
 
-SEID Engine is a machine learning–based system designed to detect social engineering attacks, specifically phishing emails and smishing (SMS-based phishing) messages.
-The system combines traditional machine learning techniques with transformer-based natural language models to analyze textual patterns and contextual semantics in digital communications.
+---
 
-The project includes:
+## Project Overview
 
-A FastAPI backend for model inference
+SEID Engine is a machine learning–based system designed to detect **social engineering attacks**, specifically **phishing emails** and **smishing (SMS-based phishing)** messages.
 
-A React + Vite + Tailwind CSS dashboard for user interaction
+The system combines traditional natural language processing techniques with transformer-based deep learning models to analyze textual patterns and contextual semantics in digital communications.
 
-An ensemble machine learning model combining TF-IDF and RoBERTa
+The system enables users to analyze messages in real time and determine the likelihood that a message is malicious.
 
-The system enables users to analyze messages in real time and determine their likelihood of being malicious.
+---
 
-Project Overview
+## System Architecture
 
-Social engineering attacks exploit human behavior rather than software vulnerabilities. Attackers craft deceptive messages that appear legitimate to manipulate users into revealing sensitive information or performing unauthorized actions.
+The SEID Engine follows a layered architecture consisting of three major components.
 
-The SEID Engine provides an automated solution to analyze incoming messages and classify them based on the likelihood of phishing or smishing attacks.
+### Frontend Layer
 
-The system supports cross-channel analysis, allowing detection across multiple communication platforms such as email and SMS.
+A web-based dashboard built using modern frontend technologies allows users to submit messages for analysis and view prediction results.
 
-System Architecture
+**Technologies Used**
 
-The system is composed of three main layers:
+- React 18  
+- Vite  
+- Tailwind CSS  
+- Axios  
 
-Frontend Layer
+The dashboard provides a simple and responsive interface for interacting with the detection engine.
 
-A React-based dashboard built using Vite and Tailwind CSS provides an interactive interface where users can submit messages for analysis and view prediction results.
+### Backend Layer
 
-Backend Layer
+The backend server manages API communication between the frontend and the machine learning models.
 
-A FastAPI server handles API requests and manages communication between the frontend and the machine learning models.
+**Technologies Used**
 
-Machine Learning Layer
+- Python  
+- FastAPI  
+- Uvicorn  
 
-The backend loads trained models and performs preprocessing, inference, ensemble scoring, and risk classification.
+The backend performs preprocessing, model inference, ensemble scoring, and risk classification before returning results to the user.
 
-Machine Learning Models
+### Machine Learning Layer
 
-The SEID Engine uses an ensemble architecture combining two models.
+The machine learning layer loads trained models and processes incoming text messages to determine whether they are malicious.
 
-TF-IDF + Logistic Regression
+It performs the following operations:
 
-A traditional NLP pipeline that converts text into numerical features using TF-IDF vectorization and classifies messages using Logistic Regression.
+- Text preprocessing  
+- Feature extraction  
+- Model inference  
+- Ensemble prediction  
+- Risk classification  
 
-Implementation tools:
+---
 
-Scikit-learn
+## Machine Learning Models
 
-TF-IDF vectorizer
+The SEID Engine uses an **ensemble machine learning architecture** combining traditional NLP models with transformer-based deep learning.
 
-Logistic Regression classifier
+### TF-IDF + Logistic Regression
 
-Joblib model serialization
+This model converts text into numerical features using **TF-IDF vectorization** and classifies messages using **Logistic Regression**.
 
-RoBERTa Transformer
+**Implementation Tools**
 
-A deep learning model capable of understanding contextual relationships within text.
+- Scikit-learn  
+- TF-IDF Vectorizer  
+- Logistic Regression  
+- Joblib (model serialization)
 
-Implementation tools:
+This model captures statistical word frequency patterns commonly found in phishing messages.
 
-HuggingFace Transformers
+---
 
-PyTorch
+### RoBERTa Transformer Model
 
-RoBERTa-base architecture
+RoBERTa is a transformer-based deep learning model that understands contextual relationships within text.
 
-Ensemble Prediction
+**Implementation Tools**
 
-Predictions from both models are combined using weighted scoring:
+- HuggingFace Transformers  
+- PyTorch  
+- RoBERTa-base architecture  
 
+This model helps detect subtle linguistic patterns and contextual manipulation techniques used in social engineering attacks.
+
+---
+
+## Ensemble Prediction
+
+Predictions from both models are combined using a weighted scoring mechanism.
+
+```
 final_score = 0.6 × roberta_score + 0.4 × tfidf_score
+```
 
-This improves detection reliability by combining contextual and statistical analysis.
+This hybrid approach improves detection reliability by combining contextual understanding with statistical analysis.
 
-Risk Classification
+---
 
-Prediction probabilities are mapped into risk levels.
+## Risk Classification
 
-Probability	Risk Tier
-< 0.2	Low
-0.2 – 0.5	Medium
-0.5 – 0.8	High
-> 0.8	Critical
-Security Modes
+Prediction probabilities are mapped into predefined risk tiers.
 
-The system supports configurable detection modes.
+| Probability | Risk Tier |
+|-------------|-----------|
+| < 0.2 | Low |
+| 0.2 – 0.5 | Medium |
+| 0.5 – 0.8 | High |
+| > 0.8 | Critical |
 
-Mode	Description
-Balanced	General detection performance
-High Recall	Reduces missed attacks
-Low False Positive	Reduces false alarms
-Dataset Sources
+These risk tiers help users quickly interpret the severity of potential threats.
+
+---
+
+## Security Modes
+
+The SEID Engine provides configurable detection modes.
+
+| Mode | Description |
+|-----|-------------|
+| Balanced | General detection performance |
+| High Recall | Reduces missed attacks |
+| Low False Positive | Reduces false alarms |
+
+These modes allow the system to adjust sensitivity based on operational requirements.
+
+---
+
+## Dataset Sources
 
 The training dataset was constructed by combining multiple publicly available datasets.
 
-Enron Email Dataset
+### Enron Email Dataset
 
-Used as a source of legitimate corporate email messages.
+Used as a source of legitimate corporate email communications.
 
-SMS Spam Collection Dataset
+### SMS Spam Collection Dataset
 
 Contains SMS messages labeled as spam or legitimate.
 
-Phishing Email Corpora
+### Phishing Email Corpora
 
 Datasets containing real phishing campaign messages.
 
-All datasets were converted into a unified canonical format before training.
+All datasets were converted into a **unified canonical format** before training.
 
-Data Processing Pipeline
+---
 
-Custom scripts were used to standardize and merge datasets.
+## Data Processing Pipeline
 
+Custom preprocessing scripts were used to standardize and merge the datasets.
+
+Scripts used in dataset preparation:
+
+```
 process_enron_canonical.py
 process_sms_canonical.py
 process_phishing_email_canonical.py
 build_master_corpus_v2.py
+```
 
-These scripts generate the unified dataset used for model training.
+These scripts generate the **master training corpus** used for machine learning model training.
 
-Frontend Dashboard
+---
 
-The user interface was developed using:
+## API Endpoints
 
-React 18
+The backend exposes REST API endpoints used by the frontend dashboard.
 
-Vite
+### Health Check
 
-Tailwind CSS
-
-Axios
-
-Dashboard Features
-
-Message input field
-
-Channel selection (Email / SMS)
-
-Security mode selection
-
-Real-time prediction results
-
-Probability score visualization
-
-Risk tier classification display
-
-The dashboard provides a clean interface for interacting with the detection system.
-
-API Endpoints
-
-The backend exposes REST endpoints used by the frontend dashboard.
-
-Health Check
+```
 GET /health
+```
 
-Returns system status and model availability.
+Returns the system status and model availability.
 
-Single Message Prediction
+---
+
+### Message Prediction
+
+```
 POST /predict
+```
 
 Example request:
 
+```json
 {
   "text": "Your account has been suspended. Click here to verify.",
   "channel": "email",
   "mode": "balanced"
 }
+```
 
 Example response:
 
+```json
 {
   "probability": 0.998,
   "risk_tier": "Critical",
   "is_malicious": true
 }
-Technical Stack
-Backend
+```
 
-Python
+---
 
-FastAPI
+## Technical Stack
 
-Uvicorn
+### Backend
 
-Scikit-learn
+- Python  
+- FastAPI  
+- Uvicorn  
+- Scikit-learn  
+- PyTorch  
+- Transformers  
+- Pandas  
+- NumPy  
+- Joblib  
 
-PyTorch
+### Frontend
 
-Transformers
+- React  
+- Vite  
+- Tailwind CSS  
+- Axios  
 
-Pandas
+### Machine Learning
 
-NumPy
+- TF-IDF feature extraction  
+- Logistic Regression  
+- Transformer-based NLP (RoBERTa)
 
-Joblib
+---
 
-Frontend
+## Running the Project
 
-React
-
-Vite
-
-Tailwind CSS
-
-Axios
-
-Machine Learning
-
-TF-IDF feature extraction
-
-Logistic Regression
-
-Transformer-based NLP (RoBERTa)
-
-Running the Project
-Backend
+### Backend Setup
 
 Install dependencies:
 
+```
 pip install -r requirements.txt
+```
 
-Start the server:
+Start the FastAPI server:
 
+```
 uvicorn app:app --reload
-Frontend
+```
+
+---
+
+### Frontend Setup
 
 Navigate to the frontend directory and install dependencies:
 
+```
 npm install
+```
 
 Start the development server:
 
+```
 npm run dev
+```
 
 The dashboard will be available at:
 
+```
 http://localhost:5173
-Project Structure
+```
+
+---
+
+## Project Structure
+
+```
 SEID_ENGINE
 │
 ├── models
@@ -252,37 +293,38 @@ SEID_ENGINE
 │   └── risk_tiers.py
 │
 ├── frontend
-│   └── React + Vite UI
+│   └── React + Vite Dashboard
 │
 ├── app.py
 ├── seid_engine.py
 └── requirements.txt
-Key Features
+```
 
-Cross-channel phishing detection
+---
 
-Ensemble machine learning architecture
+## Key Features
 
-Transformer-based language understanding
+- Cross-channel phishing and smishing detection  
+- Ensemble machine learning architecture  
+- Transformer-based language understanding  
+- Real-time message analysis  
+- Configurable detection modes  
+- Interactive web dashboard  
+- Modular and scalable architecture  
 
-Real-time message analysis
+---
 
-Configurable security modes
+## Future Work
 
-Interactive web dashboard
+Planned improvements include:
 
-Modular and production-ready design
+- Integration with additional communication platforms  
+- Real-time monitoring and alerting systems  
+- Advanced analytics and visualization features  
+- Continuous model retraining pipelines  
 
-Future Work
+---
 
-Support additional communication platforms
+## License
 
-Integrate real-time monitoring systems
-
-Improve visualization and analytics features
-
-Implement continuous model retraining
-
-License
-
-This project is developed for academic and research purposes.
+This project is developed for **academic and research purposes**.
