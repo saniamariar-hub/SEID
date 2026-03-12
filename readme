@@ -1,75 +1,288 @@
-SMS Spam Collection v.1
--------------------------
+SEID Engine — Social Engineering & Intrusion Detection System
 
-1. DESCRIPTION
---------------
+SEID Engine is a machine learning–based system designed to detect social engineering attacks, specifically phishing emails and smishing (SMS-based phishing) messages.
+The system combines traditional machine learning techniques with transformer-based natural language models to analyze textual patterns and contextual semantics in digital communications.
 
-The SMS Spam Collection v.1 (hereafter the corpus) is a set of SMS tagged messages that have been collected for SMS Spam research. It contains one set of SMS messages in English of 5,574 messages, tagged acording being ham (legitimate) or spam. 
+The project includes:
 
-1.1. Compilation
-----------------
+A FastAPI backend for model inference
 
-This corpus has been collected from free or free for research sources at the Web:
+A React + Vite + Tailwind CSS dashboard for user interaction
 
-- A collection of between 425 SMS spam messages extracted manually from the Grumbletext Web site. This is a UK forum in which cell phone users make public claims about SMS spam messages, most of them without reporting the very spam message received. The identification of the text of spam messages in the claims is a very hard and time-consuming task, and it involved carefully scanning hundreds of web pages. The Grumbletext Web site is: http://www.grumbletext.co.uk/
-- A list of 450 SMS ham messages collected from Caroline Tag's PhD Theses available at http://etheses.bham.ac.uk/253/1/Tagg09PhD.pdf
-- A subset of 3,375 SMS ham messages of the NUS SMS Corpus (NSC), which is a corpus of about 10,000 legitimate messages collected for research at the Department of Computer Science at the National University of Singapore. The messages largely originate from Singaporeans and mostly from students attending the University. These messages were collected from volunteers who were made aware that their contributions were going to be made publicly available. The NUS SMS Corpus is avalaible at: http://www.comp.nus.edu.sg/~rpnlpir/downloads/corpora/smsCorpus/
-- The amount of 1,002 SMS ham messages and 322 spam messages extracted from the SMS Spam Corpus v.0.1 Big created by Jos� Mar�a G�mez Hidalgo and public available at: http://www.esp.uem.es/jmgomez/smsspamcorpus/
+An ensemble machine learning model combining TF-IDF and RoBERTa
 
+The system enables users to analyze messages in real time and determine their likelihood of being malicious.
 
-1.2. Statistics
----------------
+Project Overview
 
-There is one collection:
+Social engineering attacks exploit human behavior rather than software vulnerabilities. Attackers craft deceptive messages that appear legitimate to manipulate users into revealing sensitive information or performing unauthorized actions.
 
-- The SMS Spam Collection v.1 (text file: smsspamcollection) has a total of 4,827 SMS legitimate messages (86.6%) and a total of 747 (13.4%) spam messages.
+The SEID Engine provides an automated solution to analyze incoming messages and classify them based on the likelihood of phishing or smishing attacks.
 
+The system supports cross-channel analysis, allowing detection across multiple communication platforms such as email and SMS.
 
-1.3. Format
------------
+System Architecture
 
-The files contain one message per line. Each line is composed by two columns: one with label (ham or spam) and other with the raw text. Here are some examples:
+The system is composed of three main layers:
 
-ham   What you doing?how are you?
-ham   Ok lar... Joking wif u oni...
-ham   dun say so early hor... U c already then say...
-ham   MY NO. IN LUTON 0125698789 RING ME IF UR AROUND! H*
-ham   Siva is in hostel aha:-.
-ham   Cos i was out shopping wif darren jus now n i called him 2 ask wat present he wan lor. Then he started guessing who i was wif n he finally guessed darren lor.
-spam   FreeMsg: Txt: CALL to No: 86888 & claim your reward of 3 hours talk time to use from your phone now! ubscribe6GBP/ mnth inc 3hrs 16 stop?txtStop
-spam   Sunshine Quiz! Win a super Sony DVD recorder if you canname the capital of Australia? Text MQUIZ to 82277. B
-spam   URGENT! Your Mobile No 07808726822 was awarded a L2,000 Bonus Caller Prize on 02/09/03! This is our 2nd attempt to contact YOU! Call 0871-872-9758 BOX95QU
+Frontend Layer
 
-Note: messages are not chronologically sorted.
+A React-based dashboard built using Vite and Tailwind CSS provides an interactive interface where users can submit messages for analysis and view prediction results.
 
+Backend Layer
 
-2. USAGE
---------
+A FastAPI server handles API requests and manages communication between the frontend and the machine learning models.
 
-We offer a comprehensive study of this corpus in the following paper that is under review. This work presents a number of statistics, studies and baseline results for several machine learning methods.
+Machine Learning Layer
 
-[1] Almeida, T.A., G�mez Hidalgo, J.M., Yamakami, A. Contributions to the study of SMS Spam Filtering: New Collection and Results. Proceedings of the 2011 ACM Symposium on Document Engineering (ACM DOCENG'11), Mountain View, CA, USA, 2011. (Under review)
+The backend loads trained models and performs preprocessing, inference, ensemble scoring, and risk classification.
 
+Machine Learning Models
 
-3. ABOUT
---------
+The SEID Engine uses an ensemble architecture combining two models.
 
-The corpus has been collected by Tiago Agostinho de Almeida (http://www.dt.fee.unicamp.br/~tiago) and Jos� Mar�a G�mez Hidalgo (http://www.esp.uem.es/jmgomez).
+TF-IDF + Logistic Regression
 
-We would like to thank Dr. Min-Yen Kan (http://www.comp.nus.edu.sg/~kanmy/) and his team for making the NUS SMS Corpus available. See: http://www.comp.nus.edu.sg/~rpnlpir/downloads/corpora/smsCorpus/. He is currently collecting a bigger SMS corpus at: http://wing.comp.nus.edu.sg:8080/SMSCorpus/
+A traditional NLP pipeline that converts text into numerical features using TF-IDF vectorization and classifies messages using Logistic Regression.
 
-4. LICENSE/DISCLAIMER
----------------------
+Implementation tools:
 
-We would appreciate if:
+Scikit-learn
 
-- In case you find this corpus useful, please make a reference to previous paper and the web page: http://www.dt.fee.unicamp.br/~tiago/smsspamcollection/ in your papers, research, etc.
-- Send us a message to tiago@dt.fee.unicamp.br in case you make use of the corpus.
+TF-IDF vectorizer
 
-The SMS Spam Collection v.1 is provided for free and with no limitations excepting:
+Logistic Regression classifier
 
-1. Tiago Agostinho de Almeida and Jos� Mar�a G�mez Hidalgo hold the copyrigth (c) for the SMS Spam Collection v.1.
+Joblib model serialization
 
-2. No Warranty/Use At Your Risk. THE CORPUS IS MADE AT NO CHARGE. ACCORDINGLY, THE CORPUS IS PROVIDED `AS IS,' WITHOUT WARRANTY OF ANY KIND, INCLUDING WITHOUT LIMITATION THE WARRANTIES THAT THEY ARE MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR NON-INFRINGING. YOU ARE SOLELY RESPONSIBLE FOR YOUR USE, DISTRIBUTION, MODIFICATION, REPRODUCTION AND PUBLICATION OF THE CORPUS AND ANY DERIVATIVE WORKS THEREOF BY YOU AND ANY OF YOUR SUBLICENSEES (COLLECTIVELY, `YOUR CORPUS USE'). THE ENTIRE RISK AS TO YOUR CORPUS USE IS BORNE BY YOU. YOU AGREE TO INDEMNIFY AND HOLD THE COPYRIGHT HOLDERS, AND THEIR AFFILIATES HARMLESS FROM ANY CLAIMS ARISING FROM OR RELATING TO YOUR CORPUS USE.
+RoBERTa Transformer
 
-3. Limitation of Liability. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR THEIR AFFILIATES, OR THE CORPUS CONTRIBUTING EDITORS, BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES, INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF GOODWILL OR ANY AND ALL OTHER COMMERCIAL DAMAGES OR LOSSES, EVEN IF ADVISED OF THE POSSIBILITY THEREOF, AND REGARDLESS OF WHETHER ANY CLAIM IS BASED UPON ANY CONTRACT, TORT OR OTHER LEGAL OR EQUITABLE THEORY, RELATING OR ARISING FROM THE CORPUS, YOUR CORPUS USE OR THIS LICENSE AGREEMENT.
+A deep learning model capable of understanding contextual relationships within text.
+
+Implementation tools:
+
+HuggingFace Transformers
+
+PyTorch
+
+RoBERTa-base architecture
+
+Ensemble Prediction
+
+Predictions from both models are combined using weighted scoring:
+
+final_score = 0.6 × roberta_score + 0.4 × tfidf_score
+
+This improves detection reliability by combining contextual and statistical analysis.
+
+Risk Classification
+
+Prediction probabilities are mapped into risk levels.
+
+Probability	Risk Tier
+< 0.2	Low
+0.2 – 0.5	Medium
+0.5 – 0.8	High
+> 0.8	Critical
+Security Modes
+
+The system supports configurable detection modes.
+
+Mode	Description
+Balanced	General detection performance
+High Recall	Reduces missed attacks
+Low False Positive	Reduces false alarms
+Dataset Sources
+
+The training dataset was constructed by combining multiple publicly available datasets.
+
+Enron Email Dataset
+
+Used as a source of legitimate corporate email messages.
+
+SMS Spam Collection Dataset
+
+Contains SMS messages labeled as spam or legitimate.
+
+Phishing Email Corpora
+
+Datasets containing real phishing campaign messages.
+
+All datasets were converted into a unified canonical format before training.
+
+Data Processing Pipeline
+
+Custom scripts were used to standardize and merge datasets.
+
+process_enron_canonical.py
+process_sms_canonical.py
+process_phishing_email_canonical.py
+build_master_corpus_v2.py
+
+These scripts generate the unified dataset used for model training.
+
+Frontend Dashboard
+
+The user interface was developed using:
+
+React 18
+
+Vite
+
+Tailwind CSS
+
+Axios
+
+Dashboard Features
+
+Message input field
+
+Channel selection (Email / SMS)
+
+Security mode selection
+
+Real-time prediction results
+
+Probability score visualization
+
+Risk tier classification display
+
+The dashboard provides a clean interface for interacting with the detection system.
+
+API Endpoints
+
+The backend exposes REST endpoints used by the frontend dashboard.
+
+Health Check
+GET /health
+
+Returns system status and model availability.
+
+Single Message Prediction
+POST /predict
+
+Example request:
+
+{
+  "text": "Your account has been suspended. Click here to verify.",
+  "channel": "email",
+  "mode": "balanced"
+}
+
+Example response:
+
+{
+  "probability": 0.998,
+  "risk_tier": "Critical",
+  "is_malicious": true
+}
+Technical Stack
+Backend
+
+Python
+
+FastAPI
+
+Uvicorn
+
+Scikit-learn
+
+PyTorch
+
+Transformers
+
+Pandas
+
+NumPy
+
+Joblib
+
+Frontend
+
+React
+
+Vite
+
+Tailwind CSS
+
+Axios
+
+Machine Learning
+
+TF-IDF feature extraction
+
+Logistic Regression
+
+Transformer-based NLP (RoBERTa)
+
+Running the Project
+Backend
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+Start the server:
+
+uvicorn app:app --reload
+Frontend
+
+Navigate to the frontend directory and install dependencies:
+
+npm install
+
+Start the development server:
+
+npm run dev
+
+The dashboard will be available at:
+
+http://localhost:5173
+Project Structure
+SEID_ENGINE
+│
+├── models
+│   ├── tfidf_model
+│   └── roberta_malicious_classifier
+│
+├── engine
+│   ├── preprocessing.py
+│   ├── inference.py
+│   ├── ensemble.py
+│   └── risk_tiers.py
+│
+├── frontend
+│   └── React + Vite UI
+│
+├── app.py
+├── seid_engine.py
+└── requirements.txt
+Key Features
+
+Cross-channel phishing detection
+
+Ensemble machine learning architecture
+
+Transformer-based language understanding
+
+Real-time message analysis
+
+Configurable security modes
+
+Interactive web dashboard
+
+Modular and production-ready design
+
+Future Work
+
+Support additional communication platforms
+
+Integrate real-time monitoring systems
+
+Improve visualization and analytics features
+
+Implement continuous model retraining
+
+License
+
+This project is developed for academic and research purposes.
