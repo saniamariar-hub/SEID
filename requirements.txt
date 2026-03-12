@@ -1,0 +1,39 @@
+# SEID Engine - Production Dependencies
+# ======================================
+# Social Engineering & Intrusion Detection Engine v3.1
+
+# =========================
+# WEB API
+# =========================
+fastapi>=0.100.0
+uvicorn[standard]>=0.22.0
+pydantic>=2.0.0
+
+# =========================
+# CORE ML
+# =========================
+scikit-learn>=1.0.0
+numpy>=1.21.0
+pandas>=1.3.0
+joblib>=1.1.0
+
+# =========================
+# DEEP LEARNING (Optional)
+# =========================
+# Note: PyTorch and Transformers are optional.
+# If not installed, the engine gracefully falls back to TF-IDF only.
+torch>=1.10.0
+transformers>=4.20.0
+
+# =========================
+# INSTALLATION
+# =========================
+# Full installation (with RoBERTa support):
+#   pip install -r requirements.txt
+#
+# Minimal installation (TF-IDF only):
+#   pip install fastapi uvicorn pydantic scikit-learn numpy pandas joblib
+#
+# Run the API:
+#   uvicorn app:app --reload --host 0.0.0.0 --port 8000
+
